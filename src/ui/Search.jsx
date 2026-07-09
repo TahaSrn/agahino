@@ -1,6 +1,6 @@
 export default function Search() {
   return (
-    <div className="flex items-center border pr-3 gap-2 bg-transparent border-dark-300/30 h-11.5 rounded-md overflow-hidden w-full font-sansReg transition-all duration-300 hover:border-primary-500/30 focus:border-primary-500/30">
+    <div className="flex items-center border pr-1 md:pr-3 gap-2 bg-transparent border-dark-300/30 h-11.5 rounded-md overflow-hidden w-full font-sansReg transition-all duration-300 hover:border-primary-500/30 focus:border-primary-500/30">
       <svg
         xmlns="http://www.w3.org/2000/svg"
         width="22"
@@ -13,7 +13,7 @@ export default function Search() {
       <input
         type="text"
         placeholder="جستجو در آگهی‌نو..."
-        className="w-full h-full outline-none text-primary-100 placeholder-gray-500 text-sm"
+        className="w-full h-full outline-none text-primary-100 placeholder-gray-500 text-[12px] md:text-sm"
       />
     </div>
   );

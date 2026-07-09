@@ -3,15 +3,15 @@ import { IoMdHeartEmpty, IoMdNotificationsOutline } from "react-icons/io";
 
 function HeaderIconBar() {
   return (
-    <div className="text-primary-100 flex gap-3 border">
+    <div className="text-primary-100 flex gap-5">
       <div>
-        <IoMdHeartEmpty size={20} />
+        <IoMdHeartEmpty size={25} />
       </div>
       <div>
-        <IoMdNotificationsOutline size={20} />
+        <IoMdNotificationsOutline size={25} />
       </div>
       <div>
-        <FiUser size={20} />
+        <FiUser size={25} />
       </div>
     </div>
   );

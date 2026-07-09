@@ -1,7 +1,13 @@
 import Header from "./Header";
+import Main from "./Main";
 
 function AppLayout() {
-  return <Header />;
+  return (
+    <>
+      <Main />
+      <Header />
+    </>
+  );
 }
 
 export default AppLayout;

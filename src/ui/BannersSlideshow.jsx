@@ -75,7 +75,7 @@ function BannersSlideshow() {
             <button
               key={index}
               onClick={() => goToSlide(index)}
-              className={`w-2 h-2 rounded-full transition-all duration-300 ${
+              className={`w-2 h-2 rounded-full transition-all duration-300 cursor-pointer ${
                 currentSlide === index
                   ? "bg-primary-100 w-6"
                   : "bg-white/50 hover:bg-white/70"

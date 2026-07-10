@@ -165,7 +165,7 @@
   }
 
   body {
-    @apply bg-background text-foreground;
+    @apply bg-dark-700 text-foreground;
   }
 
   html {

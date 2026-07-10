@@ -25,7 +25,7 @@ function CategorySection() {
   ];
 
   return (
-    <div className="w-full flex justify-center mt-6 md:mt-8">
+    <div className="w-full flex justify-center mt-8 md:mt-10">
       <BorderGlow
         className="w-[95%] md:w-[85%]"
         edgeSensitivity={30}
@@ -44,12 +44,12 @@ function CategorySection() {
               دسته بندی ها
             </h3>
 
-            <button className="text-primary-500 hover:text-primary-300 text-sm md:text-base transition-colors font-sansBold">
+            <button className="text-primary-500 hover:text-primary-300 text-sm md:text-base transition-colors font-sansBold whitespace-nowrap">
               مشاهده همه &gt;
             </button>
           </div>
 
-          <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-4 lg:grid-cols-9 gap-4 font-sansReg">
+          <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-4 lg:grid-cols-9 gap-3 md:gap-4 font-sansReg">
             {categories.map((category) => {
               const Icon = category.icon;
 
@@ -59,8 +59,8 @@ function CategorySection() {
                   className="
                   group
                   flex flex-col items-center justify-center
-                  gap-3
-                  p-5
+                  gap-2 md:gap-3
+                  p-3 md:p-5
                   rounded-xl
                   cursor-pointer
                   border border-white/10
@@ -75,7 +75,7 @@ function CategorySection() {
                 "
                 >
                   <Icon
-                    size={32}
+                    size={28}
                     className="
                     text-white
                     transition-all duration-300
@@ -85,7 +85,7 @@ function CategorySection() {
                   "
                   />
 
-                  <span className="text-white text-xs md:text-sm text-center transition-colors group-hover:text-white">
+                  <span className="text-white text-[10px] md:text-sm text-center transition-colors group-hover:text-white">
                     {category.name}
                   </span>
                 </button>

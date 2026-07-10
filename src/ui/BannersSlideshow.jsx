@@ -48,7 +48,7 @@ function BannersSlideshow() {
   };
 
   return (
-    <div className="w-full flex justify-center pt-20 md:pt-24 pb-4">
+    <div className="w-full flex justify-center pt-20 md:pt-24">
       <div
         ref={containerRef}
         className="w-[95%] md:w-[85%] relative overflow-hidden rounded-lg"

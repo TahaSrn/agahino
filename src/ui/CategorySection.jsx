@@ -1,28 +1,77 @@
 import BorderGlow from "@/components/BorderGlow";
-import {
-  FaCar,
-  FaHome,
-  FaMobile,
-  FaSuitcase,
-  FaBook,
-  FaUtensils,
-  FaTshirt,
-  FaTools,
-  FaGamepad,
-} from "react-icons/fa";
+import { useGetCategories } from "../features/useGetCategories";
+import * as Icons from "react-icons/fa";
 
 function CategorySection() {
-  const categories = [
-    { id: 1, name: "خودرو", icon: FaCar },
-    { id: 2, name: "املاک", icon: FaHome },
-    { id: 3, name: "دیجیتال", icon: FaMobile },
-    { id: 4, name: "خدمات", icon: FaSuitcase },
-    { id: 5, name: "کتاب", icon: FaBook },
-    { id: 6, name: "غذا", icon: FaUtensils },
-    { id: 7, name: "مد و پوشاک", icon: FaTshirt },
-    { id: 8, name: "ابزار", icon: FaTools },
-    { id: 9, name: "بازی", icon: FaGamepad },
-  ];
+  const { categories, isLoading, error } = useGetCategories();
+
+  if (isLoading) {
+    return (
+      <div className="w-full flex justify-center mt-8 md:mt-10">
+        <BorderGlow
+          className="w-[95%] md:w-[85%]"
+          edgeSensitivity={30}
+          glowColor="0 100 65"
+          backgroundColor="#120F17"
+          borderRadius={24}
+          glowRadius={40}
+          glowIntensity={1}
+          coneSpread={25}
+          animated={false}
+          colors={["#c084fc", "#f472b6", "#38bdf8"]}
+        >
+          <div className="bg-dark-600/30 backdrop-blur-sm border border-primary-500/20 rounded-2xl p-4 md:p-6 shadow-[inset_0_0_20px_color-mix(in_srgb,var(--color-primary-700)_30%,transparent)]">
+            <div className="flex justify-between items-center mb-5">
+              <div className="h-7 md:h-8 w-40 bg-dark-600/50 rounded-lg animate-pulse" />
+              <div className="h-5 md:h-6 w-24 bg-dark-600/50 rounded-lg animate-pulse" />
+            </div>
+
+            <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-4 lg:grid-cols-9 gap-3 md:gap-4">
+              {[...Array(9)].map((_, index) => (
+                <div
+                  key={index}
+                  className="
+                    flex flex-col items-center justify-center
+                    gap-2 md:gap-3
+                    p-3 md:p-5
+                    rounded-xl
+                    border border-white/5
+                    bg-white/5
+                    backdrop-blur-xl
+                  "
+                >
+                  <div className="w-7 h-7 md:w-8 md:h-8 bg-dark-600/50 rounded-full animate-pulse" />
+                  <div className="w-10 h-3 md:h-4 bg-dark-600/50 rounded-lg animate-pulse" />
+                </div>
+              ))}
+            </div>
+          </div>
+        </BorderGlow>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="w-full flex justify-center mt-8 md:mt-10">
+        <div className="w-[95%] md:w-[85%] text-primary-400 text-center">
+          خطا در بارگیری دسته بندی ها
+        </div>
+      </div>
+    );
+  }
+
+  const iconMap = {
+    FaCar: Icons.FaCar,
+    FaHome: Icons.FaHome,
+    FaMobile: Icons.FaMobile,
+    FaSuitcase: Icons.FaSuitcase,
+    FaBook: Icons.FaBook,
+    FaUtensils: Icons.FaUtensils,
+    FaTshirt: Icons.FaTshirt,
+    FaTools: Icons.FaTools,
+    FaGamepad: Icons.FaGamepad,
+  };
 
   return (
     <div className="w-full flex justify-center mt-8 md:mt-10">
@@ -50,8 +99,8 @@ function CategorySection() {
           </div>
 
           <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-4 lg:grid-cols-9 gap-3 md:gap-4 font-sansReg">
-            {categories.map((category) => {
-              const Icon = category.icon;
+            {categories?.map((category) => {
+              const Icon = iconMap[category.icon_name] || Icons.FaCircle;
 
               return (
                 <button

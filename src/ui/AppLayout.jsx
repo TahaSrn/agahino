@@ -1,13 +1,7 @@
-import Header from "./Header";
-import Main from "./Main";
+import Homepage from "../pages/Homepage";
 
 function AppLayout() {
-  return (
-    <>
-      <Main />
-      <Header />
-    </>
-  );
+  return <Homepage />;
 }
 
 export default AppLayout;

@@ -23,3 +23,25 @@ export async function getFeaturedAds() {
 
   return data;
 }
+
+export async function getLatestAds() {
+  const { data, error } = await supabase
+    .from("ads")
+    .select(
+      `
+      *,
+      categories (
+        name
+      )
+    `,
+    )
+    .eq("status", "active")
+    .order("created_at", { ascending: false })
+    .limit(6);
+
+  if (error) {
+    throw new Error(error.message);
+  }
+
+  return data;
+}

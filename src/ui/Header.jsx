@@ -26,9 +26,12 @@ function Header() {
           </div>
 
           <div className="hidden md:block">
-            <Button size="small" variation="primary">
-              <AiOutlinePlusCircle size={20} />
+            <Button size="small" variation="primary" className="group">
               <span>ثبت آگهی</span>
+              <AiOutlinePlusCircle
+                size={20}
+                className="transition-transform duration-300 group-hover:translate-x-1"
+              />
             </Button>
           </div>
         </div>

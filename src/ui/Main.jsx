@@ -3,6 +3,8 @@ import FeaturedAds from "../features/ads/FeaturedAds";
 import BannersSlideshow from "./BannersSlideshow";
 import CategorySection from "./CategorySection";
 import SuggestionBanner from "./SuggestionBanner";
+import LatestAds from "@/features/ads/LatestAds";
+import TrustBanner from "./TrustBanner";
 
 function Main() {
   return (
@@ -12,6 +14,8 @@ function Main() {
       <SuggestionBanner />
       <FeaturedAds />
       <PopularProvinces />
+      <LatestAds />
+      <TrustBanner />
     </main>
   );
 }

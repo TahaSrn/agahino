@@ -5,6 +5,7 @@ import CategorySection from "./CategorySection";
 import SuggestionBanner from "./SuggestionBanner";
 import LatestAds from "@/features/ads/LatestAds";
 import TrustBanner from "./TrustBanner";
+import Footer from "./Footer";
 
 function Main() {
   return (
@@ -16,6 +17,7 @@ function Main() {
       <PopularProvinces />
       <LatestAds />
       <TrustBanner />
+      <Footer />
     </main>
   );
 }

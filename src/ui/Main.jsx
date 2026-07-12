@@ -1,3 +1,4 @@
+import PopularProvinces from "../features/provinces/PopularProvinces";
 import FeaturedAds from "../features/ads/FeaturedAds";
 import BannersSlideshow from "./BannersSlideshow";
 import CategorySection from "./CategorySection";
@@ -10,6 +11,7 @@ function Main() {
       <CategorySection />
       <SuggestionBanner />
       <FeaturedAds />
+      <PopularProvinces />
     </main>
   );
 }

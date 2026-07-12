@@ -85,7 +85,7 @@ function CategorySection() {
               دسته بندی ها
             </h3>
 
-            <button className="text-primary-500 hover:text-primary-300 font-sansBold text-sm whitespace-nowrap transition-colors md:text-base">
+            <button className="text-primary-500 hover:text-primary-300 font-sansBold cursor-pointer text-sm whitespace-nowrap transition-colors md:text-base">
               مشاهده همه &gt;
             </button>
           </div>

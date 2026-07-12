@@ -72,7 +72,7 @@ function FeaturedAds() {
           <h3 className="text-primary-100 font-sansBold text-lg md:text-xl">
             آگهی‌های ویژه
           </h3>
-          <button className="text-primary-400 hover:text-primary-300 font-sansBold text-sm whitespace-nowrap transition-colors md:text-base">
+          <button className="text-primary-400 hover:text-primary-300 font-sansBold cursor-pointer text-sm whitespace-nowrap transition-colors md:text-base">
             مشاهده همه &gt;
           </button>
         </div>
@@ -95,14 +95,14 @@ function FeaturedAds() {
 
           <button
             onClick={scrollLeft}
-            className="bg-dark-800/90 hover:bg-dark-700 text-primary-100 hover:border-primary-500/50 absolute top-1/2 left-0 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full border border-white/10 shadow-lg backdrop-blur-sm transition-all duration-300 hover:scale-110"
+            className="bg-dark-800/90 hover:bg-dark-700 text-primary-100 hover:border-primary-500/50 absolute top-1/2 left-0 flex h-10 w-10 -translate-y-1/2 cursor-pointer items-center justify-center rounded-full border border-white/10 shadow-lg backdrop-blur-sm transition-all duration-300 hover:scale-110"
           >
             <IoChevronBack size={22} />
           </button>
 
           <button
             onClick={scrollRight}
-            className="bg-dark-800/90 hover:bg-dark-700 text-primary-100 hover:border-primary-500/50 absolute top-1/2 right-0 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full border border-white/10 shadow-lg backdrop-blur-sm transition-all duration-300 hover:scale-110"
+            className="bg-dark-800/90 hover:bg-dark-700 text-primary-100 hover:border-primary-500/50 absolute top-1/2 right-0 flex h-10 w-10 -translate-y-1/2 cursor-pointer items-center justify-center rounded-full border border-white/10 shadow-lg backdrop-blur-sm transition-all duration-300 hover:scale-110"
           >
             <IoChevronForward size={22} />
           </button>

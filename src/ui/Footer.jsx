@@ -16,7 +16,7 @@ function Footer() {
     <footer className="bg-dark-800/95 mt-10 w-full border-t border-white/5 md:mt-14">
       <div className="flex w-full justify-center">
         <div className="w-[95%] md:w-[85%]">
-          <div className="grid grid-cols-1 gap-8 py-10 sm:grid-cols-2 md:grid-cols-4 md:items-start">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 md:items-start md:gap-8 md:py-10">
             <div className="col-span-1 sm:col-span-2 md:col-span-1">
               <div className="mr-[-3%] mb-4">
                 <Logo className="w-32 md:w-40" />
@@ -53,7 +53,7 @@ function Footer() {
               </div>
             </div>
 
-            <div className="py-8">
+            <div className="py-6 md:py-8">
               <h4 className="font-sansBold mb-4 text-base text-white">
                 دسترسی سریع
               </h4>
@@ -93,7 +93,7 @@ function Footer() {
               </ul>
             </div>
 
-            <div className="py-8">
+            <div className="md:py-8">
               <h4 className="font-sansBold mb-4 text-base text-white">
                 دسته‌بندی‌ها
               </h4>
@@ -133,7 +133,7 @@ function Footer() {
               </ul>
             </div>
 
-            <div className="py-8">
+            <div className="py-6 md:py-8">
               <h4 className="font-sansBold mb-4 text-base text-white">
                 تماس با ما
               </h4>

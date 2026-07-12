@@ -11,10 +11,10 @@ function Main() {
   return (
     <main className="bg-dark-700 min-h-screen pb-24 md:pb-0">
       <BannersSlideshow />
-      <CategorySection />
+      <PopularProvinces />
       <SuggestionBanner />
       <FeaturedAds />
-      <PopularProvinces />
+      <CategorySection />
       <LatestAds />
       <TrustBanner />
       <Footer />

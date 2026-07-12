@@ -1,9 +1,19 @@
+import { useNavigate } from "react-router";
 import BorderGlow from "@/components/BorderGlow";
 import { useGetCategories } from "../features/categories/useGetCategories";
 import * as Icons from "react-icons/fa";
 
 function CategorySection() {
+  const navigate = useNavigate();
   const { categories, isLoading, error } = useGetCategories();
+
+  const handleCategoryClick = (categoryId) => {
+    navigate(`/ads?category=${categoryId}`);
+  };
+
+  const handleViewAll = () => {
+    navigate("/ads");
+  };
 
   if (isLoading) {
     return (
@@ -85,7 +95,10 @@ function CategorySection() {
               دسته بندی ها
             </h3>
 
-            <button className="text-primary-500 hover:text-primary-300 font-sansBold cursor-pointer text-sm whitespace-nowrap transition-colors md:text-base">
+            <button
+              onClick={handleViewAll}
+              className="text-primary-500 hover:text-primary-300 font-sansBold cursor-pointer text-sm whitespace-nowrap transition-colors md:text-base"
+            >
               مشاهده همه &gt;
             </button>
           </div>
@@ -97,6 +110,7 @@ function CategorySection() {
               return (
                 <button
                   key={category.id}
+                  onClick={() => handleCategoryClick(category.id)}
                   className="group hover:border-primary-500/40 flex cursor-pointer flex-col items-center justify-center gap-2 rounded-xl border border-white/10 bg-white/5 p-3 backdrop-blur-xl transition-all duration-300 hover:-translate-y-1 hover:bg-white/10 hover:shadow-[0_0_18px_color-mix(in_srgb,var(--color-primary-600)_30%,transparent)] active:scale-95 md:gap-3 md:p-5"
                 >
                   <Icon

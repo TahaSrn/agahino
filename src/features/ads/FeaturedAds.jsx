@@ -1,10 +1,11 @@
-// components/FeaturedAds.jsx
 import { useRef } from "react";
+import { useNavigate } from "react-router";
 import { useGetFeaturedAds } from "@/features/ads/useGetFeaturedAds";
 import AdCard from "./AdCard";
 import { IoChevronForward, IoChevronBack } from "react-icons/io5";
 
 function FeaturedAds() {
+  const navigate = useNavigate();
   const { featuredAds, isLoading, error } = useGetFeaturedAds();
   const scrollContainerRef = useRef(null);
 
@@ -29,6 +30,10 @@ function FeaturedAds() {
 
   const scrollRight = () => scrollByCard(1);
   const scrollLeft = () => scrollByCard(-1);
+
+  const handleViewAll = () => {
+    navigate("/ads?featured=true");
+  };
 
   if (isLoading) {
     return (
@@ -72,7 +77,10 @@ function FeaturedAds() {
           <h3 className="text-primary-100 font-sansBold text-lg md:text-xl">
             آگهی‌های ویژه
           </h3>
-          <button className="text-primary-400 hover:text-primary-300 font-sansBold cursor-pointer text-sm whitespace-nowrap transition-colors md:text-base">
+          <button
+            onClick={handleViewAll}
+            className="text-primary-400 hover:text-primary-300 font-sansBold cursor-pointer text-sm whitespace-nowrap transition-colors md:text-base"
+          >
             مشاهده همه &gt;
           </button>
         </div>

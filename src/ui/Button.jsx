@@ -1,4 +1,4 @@
-function Button({ children, size, variation, className = "" }) {
+function Button({ children, size, variation, className = "", onClick }) {
   const sizes = {
     small:
       "gap-1 md:gap-2 px-2 py-3 md:px-5 md:py-2 rounded-md md:text-md text-sm",
@@ -8,6 +8,7 @@ function Button({ children, size, variation, className = "" }) {
   };
   return (
     <button
+      onClick={onClick}
       className={`font-sansMed flex cursor-pointer items-center transition-all duration-300 ${sizes[size]} ${variations[variation]} ${className}`}
     >
       {children}

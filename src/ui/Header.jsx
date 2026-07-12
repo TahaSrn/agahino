@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { AiOutlinePlusCircle } from "react-icons/ai";
 import Button from "./Button";
 import HeaderIconBar from "./HeaderIconBar";
@@ -5,8 +6,12 @@ import Logo from "./Logo";
 import Search from "./Search";
 import SelectBar from "./SelectBar";
 import MobileNav from "./MobileNav";
+import Modal from "../ui/Modal";
+import CreateAdWizard from "../features/ads/CreateAdWizard";
 
 function Header() {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
   return (
     <>
       <header className="bg-dark-800/95 fixed top-0 right-0 left-0 z-50 flex w-full items-center justify-center border-b border-white/10 shadow-[0_8px_32px_rgba(0,0,0,0.25)] backdrop-blur-xl transition-all duration-300">
@@ -26,7 +31,12 @@ function Header() {
           </div>
 
           <div className="hidden md:block">
-            <Button size="small" variation="primary" className="group">
+            <Button
+              size="small"
+              variation="primary"
+              className="group"
+              onClick={() => setIsModalOpen(true)}
+            >
               <span>ثبت آگهی</span>
               <AiOutlinePlusCircle
                 size={20}
@@ -42,6 +52,10 @@ function Header() {
       </header>
 
       <MobileNav />
+
+      <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
+        <CreateAdWizard onClose={() => setIsModalOpen(false)} />
+      </Modal>
     </>
   );
 }

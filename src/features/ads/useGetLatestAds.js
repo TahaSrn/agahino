@@ -5,6 +5,7 @@ export function useGetLatestAds() {
   const { data, isLoading, error } = useQuery({
     queryKey: ["latest-ads"],
     queryFn: getLatestAds,
+    staleTime: 0,
   });
 
   return { latestAds: data, isLoading, error };

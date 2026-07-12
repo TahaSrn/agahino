@@ -1,7 +1,13 @@
+import { useNavigate } from "react-router";
 import { useGetPopularProvinces } from "@/features/provinces/useGetPopularProvinces";
 
 function PopularProvinces() {
+  const navigate = useNavigate();
   const { popularProvinces, isLoading, error } = useGetPopularProvinces();
+
+  const handleProvinceClick = (provinceId) => {
+    navigate(`/ads?province=${provinceId}`);
+  };
 
   if (isLoading) {
     return (
@@ -52,6 +58,7 @@ function PopularProvinces() {
           {popularProvinces.map((province) => (
             <div
               key={province.id}
+              onClick={() => handleProvinceClick(province.id)}
               className="group relative cursor-pointer overflow-hidden rounded-xl"
             >
               <img

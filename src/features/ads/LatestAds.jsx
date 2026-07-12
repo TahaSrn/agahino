@@ -1,8 +1,14 @@
-import { useGetLatestAds } from "@/features/ads/useGetLatestAds";
+import { useNavigate } from "react-router";
+import { useGetLatestAds } from "../ads/useGetLatestAds";
 import AdCard from "./AdCard";
 
 function LatestAds() {
+  const navigate = useNavigate();
   const { latestAds, isLoading, error } = useGetLatestAds();
+
+  const handleViewAll = () => {
+    navigate("/ads?sort=newest");
+  };
 
   if (isLoading) {
     return (
@@ -48,7 +54,10 @@ function LatestAds() {
           <h3 className="text-primary-100 font-sansBold text-lg md:text-xl">
             جدیدترین آگهی‌ها
           </h3>
-          <button className="text-primary-400 hover:text-primary-300 font-sansBold text-sm whitespace-nowrap transition-colors md:text-base">
+          <button
+            onClick={handleViewAll}
+            className="text-primary-400 hover:text-primary-300 font-sansBold text-sm whitespace-nowrap transition-colors md:text-base"
+          >
             مشاهده همه &gt;
           </button>
         </div>

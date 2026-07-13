@@ -3,6 +3,7 @@ import AppLayout from "./ui/AppLayout";
 import AdsPage from "./pages/AdsPage";
 import { Toaster } from "react-hot-toast";
 import LoginPage from "./pages/LoginPage";
+import AdDetailPage from "./pages/AdDetailPage";
 
 function App() {
   return (
@@ -29,6 +30,7 @@ function App() {
         <Routes>
           <Route path="/" element={<AppLayout />} />
           <Route path="/ads" element={<AdsPage />} />
+          <Route path="/ad/:id" element={<AdDetailPage />} />
           <Route path="/login" element={<LoginPage />} />
         </Routes>
       </BrowserRouter>

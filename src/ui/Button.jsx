@@ -1,3 +1,4 @@
+// ui/Button.jsx
 function Button({ children, size, variation, className = "", onClick }) {
   const sizes = {
     small:
@@ -5,6 +6,11 @@ function Button({ children, size, variation, className = "", onClick }) {
   };
   const variations = {
     primary: "text-white bg-primary-700 hover:bg-primary-800",
+    secondary:
+      "text-primary-100 bg-dark-700 hover:bg-dark-600 border border-white/10",
+    outline:
+      "text-primary-500 border border-primary-500 hover:bg-primary-500/10",
+    ghost: "text-gray-400 hover:text-primary-400 hover:bg-dark-700/50",
   };
   return (
     <button

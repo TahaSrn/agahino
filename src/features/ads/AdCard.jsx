@@ -1,9 +1,14 @@
-// components/AdCard.jsx
+import { useNavigate } from "react-router";
+
 function AdCard({ ad }) {
+  const navigate = useNavigate();
   const firstImage = ad.images?.[0] || "/placeholder.jpg";
 
   return (
-    <div className="bg-dark-600/50 hover:border-primary-500/40 cursor-pointer overflow-hidden rounded-xl border border-white/10 backdrop-blur-sm transition-all duration-500">
+    <div
+      onClick={() => navigate(`/ad/${ad.id}`)}
+      className="bg-dark-600/50 hover:border-primary-500/40 cursor-pointer overflow-hidden rounded-xl border border-white/10 backdrop-blur-sm transition-all duration-500"
+    >
       <div className="relative h-48 overflow-hidden">
         <img
           src={firstImage}

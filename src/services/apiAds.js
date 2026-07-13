@@ -95,3 +95,64 @@ export async function getLatestAds() {
   if (error) throw error;
   return data;
 }
+
+export async function getAd(id) {
+  const { data, error } = await supabase
+    .from("ads")
+    .select(
+      `
+      *,
+      categories (
+        name
+      )
+    `,
+    )
+    .eq("id", id)
+    .maybeSingle();
+
+  if (error) {
+    console.error("خطا:", error);
+    throw new Error(error.message);
+  }
+
+  if (!data) return null;
+
+  const { data: profile, error: profileError } = await supabase
+    .from("profiles")
+    .select("id, full_name, phone")
+    .eq("id", data.user_id)
+    .maybeSingle();
+
+  if (profileError) {
+    console.warn("خطا در گرفتن پروفایل:", profileError);
+  }
+
+  return {
+    ...data,
+    profiles: profile || null,
+  };
+}
+
+export async function getRelatedAds(categoryId, adId) {
+  const { data, error } = await supabase
+    .from("ads")
+    .select(
+      `
+      *,
+      categories (
+        name
+      )
+    `,
+    )
+    .eq("category_id", categoryId)
+    .neq("id", adId)
+    .eq("status", "active")
+    .order("created_at", { ascending: false })
+    .limit(4);
+
+  if (error) {
+    throw new Error(error.message);
+  }
+
+  return data;
+}

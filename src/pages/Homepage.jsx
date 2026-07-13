@@ -4,8 +4,8 @@ import Main from "../ui/Main";
 function Homepage() {
   return (
     <>
-      <Main />
       <Header />
+      <Main />
     </>
   );
 }

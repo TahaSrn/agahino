@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router";
-import BorderGlow from "@/components/BorderGlow";
+import BorderGlow from "./BorderGlow";
 import { useGetCategories } from "../features/categories/useGetCategories";
 import * as Icons from "react-icons/fa";
 

@@ -215,7 +215,7 @@ const BorderGlow = ({
       onPointerMove={handlePointerMove}
       onPointerEnter={() => setIsHovered(true)}
       onPointerLeave={() => setIsHovered(false)}
-      className={`relative grid isolate border border-white/15 ${className}`}
+      className={`relative isolate grid border border-white/15 ${className}`}
       style={{
         background: backgroundColor,
         borderRadius: `${borderRadius}px`,
@@ -224,9 +224,8 @@ const BorderGlow = ({
           "rgba(0,0,0,0.1) 0 1px 2px, rgba(0,0,0,0.1) 0 2px 4px, rgba(0,0,0,0.1) 0 4px 8px, rgba(0,0,0,0.1) 0 8px 16px, rgba(0,0,0,0.1) 0 16px 32px, rgba(0,0,0,0.1) 0 32px 64px",
       }}
     >
-      {/* mesh gradient border */}
       <div
-        className="absolute inset-0 rounded-[inherit] -z-[1]"
+        className="absolute inset-0 -z-[1] rounded-[inherit]"
         style={{
           border: "1px solid transparent",
           background: [
@@ -243,9 +242,8 @@ const BorderGlow = ({
         }}
       />
 
-      {/* mesh gradient fill near edges */}
       <div
-        className="absolute inset-0 rounded-[inherit] -z-[1]"
+        className="absolute inset-0 -z-[1] rounded-[inherit]"
         style={{
           border: "1px solid transparent",
           background: fillBg.join(", "),
@@ -278,12 +276,10 @@ const BorderGlow = ({
         }}
       />
 
-      {/* outer glow */}
       <span
-        className="absolute pointer-events-none z-[1] rounded-[inherit] overflow-hidden"
+        className="pointer-events-none absolute z-[1] overflow-hidden rounded-[inherit]"
         style={{
           inset: 0,
-          overflow: "visible",
           maskImage: `conic-gradient(from ${angleDeg} at center, black 2.5%, transparent 10%, transparent 90%, black 97.5%)`,
           WebkitMaskImage: `conic-gradient(from ${angleDeg} at center, black 2.5%, transparent 10%, transparent 90%, black 97.5%)`,
           opacity: glowOpacity,
@@ -294,7 +290,7 @@ const BorderGlow = ({
         }}
       >
         <span
-          className="absolute rounded-[inherit]"
+          className="absolute inset-0 rounded-[inherit]"
           style={{
             filter: `blur(${glowRadius}px)`,
             boxShadow: buildBoxShadow(glowColor, glowIntensity),

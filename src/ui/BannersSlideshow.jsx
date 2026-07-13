@@ -68,7 +68,7 @@ function BannersSlideshow() {
               key={banner.id}
               src={banner.src}
               alt={banner.alt}
-              className="h-52 w-full flex-shrink-0 object-cover md:h-[450px] lg:h-[400px]"
+              className="h-52 w-full shrink-0 object-cover object-[25%_center] md:h-75 lg:h-100"
             />
           ))}
         </div>
@@ -89,7 +89,7 @@ function BannersSlideshow() {
 
         <button
           onClick={() => navigate("/ads")}
-          className="from-primary-500 to-primary-600 hover:from-primary-400 hover:to-primary-500 font-sansBold shadow-primary-500/30 hover:shadow-primary-500/40 border-primary-400/30 absolute top-4 right-4 flex animate-pulse cursor-pointer items-center gap-2 rounded-full border bg-gradient-to-r px-5 py-2.5 text-sm text-white shadow-lg transition-all duration-300 hover:scale-105 hover:shadow-xl active:scale-95 md:top-6 md:right-6 md:px-6 md:py-3 md:text-base"
+          className="from-primary-500 to-primary-600 hover:from-primary-400 hover:to-primary-500 font-sansBold shadow-primary-500/30 hover:shadow-primary-500/40 border-primary-400/30 absolute top-4 right-4 flex animate-pulse cursor-pointer items-center gap-2 rounded-full border bg-linear-to-r px-2 py-2 text-[13px] text-white shadow-lg transition-all duration-300 hover:scale-105 hover:shadow-xl active:scale-95 md:top-6 md:right-6 md:px-6 md:py-3 md:text-base"
         >
           <span>مشاهده همه آگهی‌ها</span>
           <FaArrowLeft size={16} />

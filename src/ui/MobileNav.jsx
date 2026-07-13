@@ -5,6 +5,7 @@ import {
   FiSettings,
   FiFileText,
   FiMoreHorizontal,
+  FiLogIn,
 } from "react-icons/fi";
 import { IoMdHeartEmpty, IoMdNotificationsOutline } from "react-icons/io";
 import { IoChatbubbleOutline } from "react-icons/io5";
@@ -37,7 +38,7 @@ function MobileNav() {
 
   return (
     <>
-      <div className="font-sansReg bg-dark-700 fixed right-0 bottom-0 left-0 z-50 border-t border-gray-700/50 px-4 py-2 md:hidden">
+      <div className="font-sansReg bg-dark-700 fixed inset-x-0 right-0 bottom-0 left-0 z-50 border-t border-gray-700/50 px-4 py-2 md:hidden">
         <div className="mx-auto flex max-w-md items-end justify-around">
           <button
             onClick={() => navigate("/")}
@@ -75,8 +76,17 @@ function MobileNav() {
             onClick={() => (user ? setShowMore(!showMore) : navigate("/login"))}
             className="text-primary-100 hover:text-primary-200 flex flex-col items-center gap-0.5 transition-colors"
           >
-            <FiMoreHorizontal size={24} />
-            <span className="text-[10px]">{user ? "بیشتر" : "ورود"}</span>
+            {user ? (
+              <>
+                <FiMoreHorizontal size={24} />
+                <span className="text-[10px]">بیشتر</span>
+              </>
+            ) : (
+              <>
+                <FiLogIn size={24} />
+                <span className="text-[10px]">ورود</span>
+              </>
+            )}
           </button>
         </div>
 

@@ -2,13 +2,21 @@
 import { useState } from "react";
 import { useNavigate } from "react-router";
 import supabase from "../services/supabase";
-import { FaMobile, FaLock, FaUser, FaEnvelope } from "react-icons/fa";
+import {
+  FaMobile,
+  FaLock,
+  FaUser,
+  FaEnvelope,
+  FaEye,
+  FaEyeSlash,
+} from "react-icons/fa";
 import toast from "react-hot-toast";
 
 function LoginPage() {
   const navigate = useNavigate();
   const [isLogin, setIsLogin] = useState(true);
   const [loading, setLoading] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
   const [formData, setFormData] = useState({
     phone: "",
     password: "",
@@ -152,7 +160,7 @@ function LoginPage() {
             <div className="relative">
               <FaLock className="absolute top-1/2 right-3 -translate-y-1/2 text-gray-500" />
               <input
-                type="password"
+                type={showPassword ? "text" : "password"}
                 name="password"
                 value={formData.password}
                 onChange={handleChange}
@@ -160,6 +168,13 @@ function LoginPage() {
                 className="bg-dark-700/50 font-sansReg focus:border-primary-500/50 w-full rounded-lg border border-white/10 px-4 py-2.5 pr-10 text-sm text-gray-300 transition-colors duration-300 outline-none"
                 required
               />
+              <button
+                type="button"
+                onClick={() => setShowPassword(!showPassword)}
+                className="absolute top-1/2 left-3 -translate-y-1/2 text-gray-500 transition-colors duration-300 hover:text-gray-300"
+              >
+                {showPassword ? <FaEyeSlash size={18} /> : <FaEye size={18} />}
+              </button>
             </div>
           </div>
 

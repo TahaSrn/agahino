@@ -305,7 +305,7 @@ function AdDetailPage() {
               <Button
                 size="small"
                 variation="secondary"
-                className="px-14 py-3 md:px-24"
+                className="px-14 py-3 md:px-30"
                 onClick={() => toast.info("در حال توسعه...")}
               >
                 <FaComment size={16} />

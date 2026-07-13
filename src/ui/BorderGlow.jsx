@@ -215,7 +215,7 @@ const BorderGlow = ({
       onPointerMove={handlePointerMove}
       onPointerEnter={() => setIsHovered(true)}
       onPointerLeave={() => setIsHovered(false)}
-      className={`relative isolate grid border border-white/15 ${className}`}
+      className={`relative isolate grid overflow-hidden border border-white/15 md:overflow-visible ${className} `}
       style={{
         background: backgroundColor,
         borderRadius: `${borderRadius}px`,
@@ -242,7 +242,6 @@ const BorderGlow = ({
             : "opacity 0.75s ease-in-out",
         }}
       />
-
       {/* mesh gradient fill near edges */}
       <div
         className="absolute inset-0 -z-[1] rounded-[inherit]"
@@ -277,13 +276,11 @@ const BorderGlow = ({
             : "opacity 0.75s ease-in-out",
         }}
       />
-
       {/* outer glow */}
       <span
-        className="pointer-events-none absolute z-[1] overflow-hidden rounded-[inherit]"
+        className="pointer-events-none absolute z-[1] rounded-[inherit]"
         style={{
-          inset: 0,
-          overflow: "visible",
+          inset: `${-glowRadius}px`,
           maskImage: `conic-gradient(from ${angleDeg} at center, black 2.5%, transparent 10%, transparent 90%, black 97.5%)`,
           WebkitMaskImage: `conic-gradient(from ${angleDeg} at center, black 2.5%, transparent 10%, transparent 90%, black 97.5%)`,
           opacity: glowOpacity,
@@ -296,13 +293,14 @@ const BorderGlow = ({
         <span
           className="absolute rounded-[inherit]"
           style={{
-            filter: `blur(${glowRadius}px)`,
+            inset: `${glowRadius}px`,
             boxShadow: buildBoxShadow(glowColor, glowIntensity),
           }}
         />
       </span>
-
-      <div className="relative z-1">{children}</div>
+      <div className="relative z-[1] flex flex-col overflow-auto">
+        {children}
+      </div>
     </div>
   );
 };

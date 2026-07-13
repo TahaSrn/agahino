@@ -8,7 +8,6 @@ import Button from "./Button";
 import Logo from "./Logo";
 import Search from "./Search";
 import SelectBar from "./SelectBar";
-import MobileNav from "./MobileNav";
 import Modal from "../ui/Modal";
 import CreateAdWizard from "../features/ads/CreateAdWizard";
 import { useUser } from "../features/auth/useUser";
@@ -215,8 +214,6 @@ function Header() {
 
         <div className="bg-primary-500/10 pointer-events-none absolute -bottom-3 left-1/2 h-8 w-[85%] -translate-x-1/2 rounded-full blur-2xl" />
       </header>
-
-      <MobileNav />
 
       <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
         <CreateAdWizard onClose={() => setIsModalOpen(false)} />

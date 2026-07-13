@@ -1,3 +1,4 @@
+// components/Main.jsx
 import PopularProvinces from "../features/provinces/PopularProvinces";
 import FeaturedAds from "../features/ads/FeaturedAds";
 import BannersSlideshow from "./BannersSlideshow";
@@ -6,6 +7,7 @@ import SuggestionBanner from "./SuggestionBanner";
 import LatestAds from "@/features/ads/LatestAds";
 import TrustBanner from "./TrustBanner";
 import Footer from "./Footer";
+import MobileNav from "./MobileNav";
 
 function Main() {
   return (
@@ -18,6 +20,7 @@ function Main() {
       <LatestAds />
       <TrustBanner />
       <Footer />
+      <MobileNav />
     </main>
   );
 }

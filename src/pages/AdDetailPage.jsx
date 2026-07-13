@@ -13,9 +13,15 @@ import {
   FaArrowRight,
   FaUser,
   FaCopy,
+  FaExpand,
 } from "react-icons/fa";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import toast from "react-hot-toast";
+import Lightbox from "yet-another-react-lightbox";
+import "yet-another-react-lightbox/styles.css";
+import Zoom from "yet-another-react-lightbox/plugins/zoom";
+import Thumbnails from "yet-another-react-lightbox/plugins/thumbnails";
+import "yet-another-react-lightbox/plugins/thumbnails.css";
 
 function AdDetailPage() {
   const { id } = useParams();
@@ -24,6 +30,12 @@ function AdDetailPage() {
   const { relatedAds } = useGetRelatedAds(ad?.category_id, id);
   const [selectedImage, setSelectedImage] = useState(0);
   const [showPhone, setShowPhone] = useState(false);
+  const [isLightboxOpen, setIsLightboxOpen] = useState(false);
+  const [lightboxIndex, setLightboxIndex] = useState(0);
+
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }, []);
 
   if (isLoading) {
     return (
@@ -65,6 +77,11 @@ function AdDetailPage() {
   const images = ad.images || [];
   const mainImage = images[selectedImage] || "/placeholder.jpg";
 
+  const reversedImages = [...images].reverse();
+  const reversedSelectedIndex = images.length - 1 - selectedImage;
+  const reversedMainImage =
+    reversedImages[reversedSelectedIndex] || "/placeholder.jpg";
+
   const handleShowPhone = () => {
     setShowPhone(true);
     if (ad.profiles?.phone) {
@@ -81,8 +98,20 @@ function AdDetailPage() {
     }
   };
 
+  const openLightbox = (index) => {
+    const reversedIndex = images.length - 1 - index;
+    setLightboxIndex(reversedIndex);
+    setIsLightboxOpen(true);
+  };
+
+  const handleThumbnailClick = (index) => {
+    setSelectedImage(index);
+  };
+
+  const lightboxSlides = images.map((src) => ({ src }));
+
   return (
-    <div className="flex w-full justify-center pt-20 pb-10 md:pt-24">
+    <div className="flex w-full justify-center pt-4 pb-10">
       <div className="w-[95%] md:w-[85%]">
         <button
           onClick={() => navigate(-1)}
@@ -94,66 +123,43 @@ function AdDetailPage() {
 
         <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
           <div>
-            <div className="bg-dark-800/50 overflow-hidden rounded-xl border border-white/10">
+            <div
+              className="bg-dark-800/50 group relative cursor-pointer overflow-hidden rounded-xl border border-white/10"
+              onClick={() => openLightbox(selectedImage)}
+            >
               <img
-                src={mainImage}
+                src={reversedMainImage}
                 alt={ad.title}
-                className="h-80 w-full object-cover md:h-96"
+                className="h-[500px] w-full object-cover md:h-[600px]"
               />
+              <div className="absolute inset-0 flex items-center justify-center bg-black/0 transition-all duration-300 group-hover:bg-black/30">
+                <FaExpand className="text-3xl text-white opacity-0 transition-all duration-300 group-hover:opacity-100" />
+              </div>
             </div>
             {images.length > 1 && (
               <div className="mt-3 flex gap-2 overflow-x-auto pb-2">
-                {images.map((img, index) => (
-                  <button
-                    key={index}
-                    onClick={() => setSelectedImage(index)}
-                    className={`h-16 w-16 flex-shrink-0 overflow-hidden rounded-lg border-2 transition-all ${
-                      selectedImage === index
-                        ? "border-primary-500"
-                        : "border-white/10 hover:border-white/30"
-                    }`}
-                  >
-                    <img
-                      src={img}
-                      alt={`thumbnail-${index}`}
-                      className="h-full w-full object-cover"
-                    />
-                  </button>
-                ))}
+                {reversedImages.map((img, index) => {
+                  const originalIndex = images.length - 1 - index;
+                  return (
+                    <button
+                      key={originalIndex}
+                      onClick={() => handleThumbnailClick(originalIndex)}
+                      className={`h-16 w-16 flex-shrink-0 overflow-hidden rounded-lg border-2 transition-all ${
+                        selectedImage === originalIndex
+                          ? "border-primary-500"
+                          : "border-white/10 hover:border-white/30"
+                      }`}
+                    >
+                      <img
+                        src={img}
+                        alt={`thumbnail-${originalIndex}`}
+                        className="h-full w-full object-cover"
+                      />
+                    </button>
+                  );
+                })}
               </div>
             )}
-            <div className="mt-4 flex gap-3">
-              {showPhone && ad.profiles?.phone ? (
-                <Button
-                  size="small"
-                  variation="primary"
-                  className="flex-1 justify-center py-3"
-                  onClick={copyToClipboard}
-                >
-                  <FaCopy size={16} />
-                  {ad.profiles.phone}
-                </Button>
-              ) : (
-                <Button
-                  size="small"
-                  variation="primary"
-                  className="flex-1 justify-center py-3"
-                  onClick={handleShowPhone}
-                >
-                  <FaPhone size={16} />
-                  اطلاعات تماس
-                </Button>
-              )}
-              <Button
-                size="small"
-                variation="secondary"
-                className="flex-1 justify-center py-3"
-                onClick={() => toast.info("در حال توسعه...")}
-              >
-                <FaComment size={16} />
-                چت
-              </Button>
-            </div>
           </div>
 
           <div className="space-y-4">
@@ -273,6 +279,39 @@ function AdDetailPage() {
                 </p>
               </div>
             </div>
+
+            <div className="flex justify-start gap-3 pt-2">
+              {showPhone && ad.profiles?.phone ? (
+                <Button
+                  size="small"
+                  variation="primary"
+                  className="px-8 py-3 md:px-24"
+                  onClick={copyToClipboard}
+                >
+                  <FaCopy size={16} />
+                  {ad.profiles.phone}
+                </Button>
+              ) : (
+                <Button
+                  size="small"
+                  variation="primary"
+                  className="px-8 py-3 md:px-24"
+                  onClick={handleShowPhone}
+                >
+                  <FaPhone size={16} />
+                  اطلاعات تماس
+                </Button>
+              )}
+              <Button
+                size="small"
+                variation="secondary"
+                className="px-14 py-3 md:px-24"
+                onClick={() => toast.info("در حال توسعه...")}
+              >
+                <FaComment size={16} />
+                چت
+              </Button>
+            </div>
           </div>
         </div>
 
@@ -289,6 +328,44 @@ function AdDetailPage() {
           </div>
         )}
       </div>
+
+      {isLightboxOpen && lightboxSlides.length > 0 && (
+        <Lightbox
+          open={isLightboxOpen}
+          close={() => setIsLightboxOpen(false)}
+          index={lightboxIndex}
+          slides={lightboxSlides}
+          plugins={[Zoom, Thumbnails]}
+          carousel={{
+            finite: true,
+          }}
+          controller={{
+            rtl: false,
+          }}
+          zoom={{
+            maxZoomPixelRatio: 3,
+            zoomInMultiplier: 2,
+          }}
+          thumbnails={{
+            position: "bottom",
+            width: 80,
+            height: 60,
+            border: 0,
+            borderRadius: 4,
+            padding: 4,
+            gap: 8,
+          }}
+          styles={{
+            container: {
+              backgroundColor: "rgba(0,0,0,0.95)",
+            },
+            button: {
+              filter: "none",
+              color: "#fff",
+            },
+          }}
+        />
+      )}
     </div>
   );
 }

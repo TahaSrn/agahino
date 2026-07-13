@@ -68,7 +68,7 @@ function BannersSlideshow() {
               key={banner.id}
               src={banner.src}
               alt={banner.alt}
-              className="h-52 w-full flex-shrink-0 object-cover md:h-[450px] lg:h-[550px]"
+              className="h-52 w-full flex-shrink-0 object-cover md:h-[450px] lg:h-[400px]"
             />
           ))}
         </div>

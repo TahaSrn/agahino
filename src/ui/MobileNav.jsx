@@ -11,7 +11,7 @@ import { IoChatbubbleOutline } from "react-icons/io5";
 import { AiOutlinePlusCircle } from "react-icons/ai";
 import { useNavigate } from "react-router";
 import { useUser } from "../features/auth/useUser";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Modal from "../ui/Modal";
 import CreateAdWizard from "../features/ads/CreateAdWizard";
 
@@ -20,6 +20,20 @@ function MobileNav() {
   const { user } = useUser();
   const [showMore, setShowMore] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [animate, setAnimate] = useState(false);
+
+  useEffect(() => {
+    if (showMore) {
+      setAnimate(true);
+    }
+  }, [showMore]);
+
+  const handleClose = () => {
+    setAnimate(false);
+    setTimeout(() => {
+      setShowMore(false);
+    }, 300);
+  };
 
   return (
     <>
@@ -52,8 +66,8 @@ function MobileNav() {
 
           {user && (
             <button className="text-primary-100 hover:text-primary-200 flex flex-col items-center gap-0.5 transition-colors">
-              <IoMdHeartEmpty size={24} />
-              <span className="text-[10px]">علاقه‌مندی</span>
+              <IoMdNotificationsOutline size={24} />
+              <span className="text-[10px]">اعلان‌ها</span>
             </button>
           )}
 
@@ -67,50 +81,64 @@ function MobileNav() {
         </div>
 
         {user && showMore && (
-          <div className="bg-dark-800 absolute right-0 bottom-16 left-0 rounded-t-2xl border-t border-gray-700/50 px-4 py-3 shadow-2xl">
-            <div className="mx-auto grid max-w-md grid-cols-4 gap-4">
-              <button
-                onClick={() => {
-                  setShowMore(false);
-                  navigate("/profile");
-                }}
-                className="hover:text-primary-100 flex flex-col items-center gap-1 text-gray-400 transition-colors"
-              >
-                <FiUser size={22} />
-                <span className="text-[9px]">پروفایل</span>
-              </button>
-              <button
-                onClick={() => {
-                  setShowMore(false);
-                  navigate("/my-ads");
-                }}
-                className="hover:text-primary-100 flex flex-col items-center gap-1 text-gray-400 transition-colors"
-              >
-                <FiFileText size={22} />
-                <span className="text-[9px]">آگهی‌های من</span>
-              </button>
-              <button
-                onClick={() => {
-                  setShowMore(false);
-                  navigate("/notifications");
-                }}
-                className="hover:text-primary-100 flex flex-col items-center gap-1 text-gray-400 transition-colors"
-              >
-                <IoMdNotificationsOutline size={22} />
-                <span className="text-[9px]">اعلان‌ها</span>
-              </button>
-              <button
-                onClick={() => {
-                  setShowMore(false);
-                  navigate("/settings");
-                }}
-                className="hover:text-primary-100 flex flex-col items-center gap-1 text-gray-400 transition-colors"
-              >
-                <FiSettings size={22} />
-                <span className="text-[9px]">تنظیمات</span>
-              </button>
+          <>
+            <div
+              className={`fixed inset-0 z-40 bg-black/50 transition-opacity duration-300 ${
+                animate ? "opacity-100" : "opacity-0"
+              }`}
+              onClick={handleClose}
+            />
+            <div
+              className={`bg-dark-800 absolute right-0 bottom-16 left-0 z-50 rounded-t-2xl border-t border-gray-700/50 px-4 py-3 shadow-2xl transition-all duration-300 ${
+                animate
+                  ? "translate-y-0 opacity-100"
+                  : "translate-y-4 opacity-0"
+              }`}
+            >
+              <div className="mx-auto grid max-w-md grid-cols-4 gap-4">
+                <button
+                  onClick={() => {
+                    handleClose();
+                    navigate("/profile");
+                  }}
+                  className="hover:text-primary-100 flex flex-col items-center gap-1 text-gray-400 transition-colors"
+                >
+                  <FiUser size={22} />
+                  <span className="text-[9px]">پروفایل</span>
+                </button>
+                <button
+                  onClick={() => {
+                    handleClose();
+                    navigate("/my-ads");
+                  }}
+                  className="hover:text-primary-100 flex flex-col items-center gap-1 text-gray-400 transition-colors"
+                >
+                  <FiFileText size={22} />
+                  <span className="text-[9px]">آگهی‌های من</span>
+                </button>
+                <button
+                  onClick={() => {
+                    handleClose();
+                    navigate("/favorites");
+                  }}
+                  className="hover:text-primary-100 flex flex-col items-center gap-1 text-gray-400 transition-colors"
+                >
+                  <IoMdHeartEmpty size={22} />
+                  <span className="text-[9px]">علاقه‌مندی</span>
+                </button>
+                <button
+                  onClick={() => {
+                    handleClose();
+                    navigate("/settings");
+                  }}
+                  className="hover:text-primary-100 flex flex-col items-center gap-1 text-gray-400 transition-colors"
+                >
+                  <FiSettings size={22} />
+                  <span className="text-[9px]">تنظیمات</span>
+                </button>
+              </div>
             </div>
-          </div>
+          </>
         )}
       </div>
 

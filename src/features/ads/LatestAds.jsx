@@ -15,14 +15,15 @@ function LatestAds() {
       <div className="mt-8 flex w-full justify-center md:mt-10">
         <div className="w-[95%] md:w-[85%]">
           <div className="mb-4 flex items-center justify-between">
-            <div className="bg-dark-600/50 h-7 w-48 animate-pulse rounded-lg md:h-8" />
-            <div className="bg-dark-600/50 h-6 w-24 animate-pulse rounded-lg" />
+            <div className="from-dark-600 via-dark-500 to-dark-600 animate-shimmer h-7 w-48 rounded-lg bg-linear-to-r md:h-8" />
+            <div className="from-dark-600 via-dark-500 to-dark-600 animate-shimmer h-6 w-24 rounded-lg bg-linear-to-r" />
           </div>
+
           <div className="grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-6">
             {[...Array(6)].map((_, index) => (
               <div
                 key={index}
-                className="bg-dark-600/50 h-64 animate-pulse rounded-xl"
+                className="from-dark-600 via-dark-500 to-dark-600 animate-shimmer h-64 rounded-xl bg-linear-to-r"
               />
             ))}
           </div>

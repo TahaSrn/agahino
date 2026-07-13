@@ -7,8 +7,11 @@ import {
   FaArrowLeft,
 } from "react-icons/fa";
 import Button from "./Button";
+import { useNavigate } from "react-router";
 
 function TrustBanner() {
+  const navigate = useNavigate();
+
   const items = [
     {
       id: 1,
@@ -113,7 +116,12 @@ function TrustBanner() {
             </div>
 
             <div className="mt-8 flex justify-center md:mt-10">
-              <Button size="small" variation="primary" className="group">
+              <Button
+                size="small"
+                variation="primary"
+                className="group"
+                onClick={() => navigate("/ads")}
+              >
                 شروع کن
                 <FaArrowLeft className="text-xs transition-transform duration-300 group-hover:translate-x-1" />
               </Button>

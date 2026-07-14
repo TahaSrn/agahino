@@ -1,3 +1,4 @@
+// features/auth/useUser.js
 import { useEffect, useState } from "react";
 import supabase from "@/services/supabase";
 
@@ -7,9 +8,20 @@ export function useUser() {
 
   useEffect(() => {
     const getUser = async () => {
-      const { data } = await supabase.auth.getUser();
-      setUser(data?.user || null);
-      setIsLoading(false);
+      try {
+        const { data, error } = await supabase.auth.getUser();
+        if (error) {
+          console.error("Error getting user:", error);
+          setUser(null);
+        } else {
+          setUser(data?.user || null);
+        }
+      } catch (error) {
+        console.error("Error:", error);
+        setUser(null);
+      } finally {
+        setIsLoading(false);
+      }
     };
 
     getUser();
@@ -21,7 +33,9 @@ export function useUser() {
       },
     );
 
-    return () => listener?.subscription?.unsubscribe();
+    return () => {
+      listener?.subscription?.unsubscribe();
+    };
   }, []);
 
   return { user, isLoading };

@@ -34,7 +34,7 @@ function ChatList({ conversations, selectedId, onSelect }) {
           return (
             <div
               key={conv.id}
-              className={`group relative ${
+              className={`relative ${
                 selectedId === conv.id
                   ? "border-primary-500/50 bg-dark-800/50"
                   : ""
@@ -64,21 +64,23 @@ function ChatList({ conversations, selectedId, onSelect }) {
                   </p>
                 </div>
                 <div className="flex-shrink-0 text-left">
-                  <p className="font-sansReg text-xs text-gray-500">
-                    {conv.last_message_time
-                      ? format(new Date(conv.last_message_time), "HH:mm", {
-                          locale: faIR,
-                        })
-                      : ""}
-                  </p>
+                  <div className="flex flex-col items-end gap-1">
+                    <p className="font-sansReg text-xs text-gray-500">
+                      {conv.last_message_time
+                        ? format(new Date(conv.last_message_time), "HH:mm", {
+                            locale: faIR,
+                          })
+                        : ""}
+                    </p>
+                    <button
+                      onClick={(e) => handleDelete(e, conv.id)}
+                      disabled={isPending}
+                      className="rounded-full bg-red-500/20 p-1.5 text-red-400 transition-colors hover:bg-red-500/40 hover:text-red-300 disabled:opacity-50"
+                    >
+                      <FaTrash size={12} />
+                    </button>
+                  </div>
                 </div>
-              </button>
-              <button
-                onClick={(e) => handleDelete(e, conv.id)}
-                disabled={isPending}
-                className="absolute top-1/2 left-3 -translate-y-1/2 rounded-full bg-red-500/20 p-2 text-red-400 opacity-0 transition-opacity duration-200 group-hover:opacity-100 hover:bg-red-500/40 hover:text-red-300 disabled:opacity-50"
-              >
-                <FaTrash size={14} />
               </button>
             </div>
           );

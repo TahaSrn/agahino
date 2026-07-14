@@ -1,4 +1,3 @@
-// pages/LoginPage.jsx
 import { useState } from "react";
 import { useNavigate } from "react-router";
 import supabase from "../services/supabase";
@@ -28,70 +27,74 @@ function LoginPage() {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
+  const normalizePhone = (phone) => {
+    let cleaned = phone.replace(/\s/g, "");
+    if (cleaned.startsWith("+98")) {
+      cleaned = "0" + cleaned.slice(3);
+    }
+    if (cleaned.startsWith("98") && !cleaned.startsWith("+")) {
+      cleaned = "0" + cleaned.slice(2);
+    }
+    return cleaned;
+  };
+
+  const checkPhoneExists = async (phone) => {
+    const normalized = normalizePhone(phone);
+    const { data, error } = await supabase
+      .from("profiles")
+      .select("phone")
+      .eq("phone", normalized)
+      .maybeSingle();
+
+    return !!data;
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
+    const normalizedPhone = normalizePhone(formData.phone);
 
     try {
       if (isLogin) {
-        console.log("شماره وارد شده:", formData.phone);
-
         const { data: profile, error: profileError } = await supabase
           .from("profiles")
           .select("id, phone")
-          .eq("phone", formData.phone.trim());
+          .eq("phone", normalizedPhone)
+          .maybeSingle();
 
-        console.log("نتیجه جستجو:", profile);
-        console.log("خطا:", profileError);
-
-        if (profileError) {
-          console.error("خطای جستجو:", profileError);
-          toast.error("خطا در جستجوی کاربر");
-          setLoading(false);
-          return;
-        }
-
-        if (!profile || profile.length === 0) {
+        if (profileError || !profile) {
           toast.error("کاربری با این شماره پیدا نشد");
           setLoading(false);
           return;
         }
 
         const { error } = await supabase.auth.signInWithPassword({
-          email: `${formData.phone.trim()}@agahino.com`,
+          email: `${normalizedPhone}@agahino.com`,
           password: formData.password,
         });
 
-        if (error) {
-          console.error("خطای لاگین:", error);
-          throw error;
-        }
+        if (error) throw error;
 
         toast.success("ورود موفقیت‌آمیز بود!");
         navigate("/");
         window.location.reload();
       } else {
-        const { data: existingUser, error: checkError } = await supabase
-          .from("profiles")
-          .select("phone")
-          .eq("phone", formData.phone.trim())
-          .maybeSingle();
+        const phoneExists = await checkPhoneExists(normalizedPhone);
 
-        if (existingUser) {
+        if (phoneExists) {
           toast.error("این شماره موبایل قبلاً ثبت‌نام شده است");
           setLoading(false);
           return;
         }
 
-        const email = formData.email || `${formData.phone.trim()}@agahino.com`;
-
         const { data, error } = await supabase.auth.signUp({
-          email: email,
+          email: `${normalizedPhone}@agahino.com`,
           password: formData.password,
           options: {
             data: {
               full_name: formData.fullName,
-              phone: formData.phone.trim(),
+              phone: normalizedPhone,
+              has_email: !!formData.email,
             },
           },
         });
@@ -103,11 +106,21 @@ function LoginPage() {
             .from("profiles")
             .upsert({
               id: data.user.id,
-              phone: formData.phone.trim(),
+              phone: normalizedPhone,
               full_name: formData.fullName,
+              email: formData.email || null,
             });
 
           if (profileError) throw profileError;
+
+          if (formData.email) {
+            const { error: updateEmailError } = await supabase.auth.updateUser({
+              email: formData.email,
+            });
+            if (updateEmailError) {
+              console.error("خطا در آپدیت ایمیل:", updateEmailError);
+            }
+          }
 
           toast.success("ثبت‌نام موفقیت‌آمیز بود!");
           setIsLogin(true);

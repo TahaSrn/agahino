@@ -4,6 +4,7 @@ import AdsPage from "./pages/AdsPage";
 import { Toaster } from "react-hot-toast";
 import LoginPage from "./pages/LoginPage";
 import AdDetailPage from "./pages/AdDetailPage";
+import ChatLayout from "./pages/ChatLayout";
 
 function App() {
   return (
@@ -32,6 +33,9 @@ function App() {
           <Route path="/ads" element={<AdsPage />} />
           <Route path="/ad/:id" element={<AdDetailPage />} />
           <Route path="/login" element={<LoginPage />} />
+
+          <Route path="/chat" element={<ChatLayout />} />
+          <Route path="/chat/:conversationId" element={<ChatLayout />} />
         </Routes>
       </BrowserRouter>
     </>

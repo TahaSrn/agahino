@@ -49,7 +49,10 @@ function MobileNav() {
           </button>
 
           {user && (
-            <button className="text-primary-100 hover:text-primary-200 flex flex-col items-center gap-0.5 transition-colors">
+            <button
+              onClick={() => navigate("/chat")}
+              className="text-primary-100 hover:text-primary-200 flex flex-col items-center gap-0.5 transition-colors"
+            >
               <IoChatbubbleOutline size={24} />
               <span className="text-[10px]">چت</span>
             </button>
@@ -66,7 +69,10 @@ function MobileNav() {
           </button>
 
           {user && (
-            <button className="text-primary-100 hover:text-primary-200 flex flex-col items-center gap-0.5 transition-colors">
+            <button
+              onClick={() => navigate("/notifications")}
+              className="text-primary-100 hover:text-primary-200 flex flex-col items-center gap-0.5 transition-colors"
+            >
               <IoMdNotificationsOutline size={24} />
               <span className="text-[10px]">اعلان‌ها</span>
             </button>

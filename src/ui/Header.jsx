@@ -100,13 +100,22 @@ function Header() {
           <div className="text-primary-100 hidden items-center gap-5 md:flex">
             {user && (
               <>
-                <button className="cursor-pointer transition-colors hover:text-white">
+                <button
+                  onClick={() => navigate("/favorites")}
+                  className="cursor-pointer transition-colors hover:text-white"
+                >
                   <IoMdHeartEmpty size={25} />
                 </button>
-                <button className="cursor-pointer transition-colors hover:text-white">
+                <button
+                  onClick={() => navigate("/notifications")}
+                  className="cursor-pointer transition-colors hover:text-white"
+                >
                   <IoMdNotificationsOutline size={25} />
                 </button>
-                <button className="cursor-pointer transition-colors hover:text-white">
+                <button
+                  onClick={() => navigate("/chat")}
+                  className="cursor-pointer transition-colors hover:text-white"
+                >
                   <IoChatbubbleOutline size={24} />
                 </button>
               </>
@@ -173,6 +182,16 @@ function Header() {
                       >
                         <FiFileText size={16} />
                         آگهی‌های من
+                      </button>
+                      <button
+                        onClick={() => {
+                          setShowDropdown(false);
+                          navigate("/chat");
+                        }}
+                        className="hover:text-primary-100 font-sansReg flex w-full items-center gap-3 px-4 py-2.5 text-sm text-gray-300 transition-colors duration-200 hover:bg-white/5"
+                      >
+                        <IoChatbubbleOutline size={16} />
+                        چت‌ها
                       </button>
                       <button
                         onClick={() => {

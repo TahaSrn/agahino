@@ -22,10 +22,13 @@ import "yet-another-react-lightbox/styles.css";
 import Zoom from "yet-another-react-lightbox/plugins/zoom";
 import Thumbnails from "yet-another-react-lightbox/plugins/thumbnails";
 import "yet-another-react-lightbox/plugins/thumbnails.css";
+import { useUser } from "../features/auth/useUser";
+import { getOrCreateConversation } from "../services/apiChat";
 
 function AdDetailPage() {
   const { id } = useParams();
   const navigate = useNavigate();
+  const { user } = useUser();
   const { ad, isLoading, error } = useGetAd(id);
   const { relatedAds } = useGetRelatedAds(ad?.category_id, id);
   const [selectedImage, setSelectedImage] = useState(0);
@@ -36,6 +39,36 @@ function AdDetailPage() {
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: "smooth" });
   }, []);
+
+  const handleChat = async () => {
+    console.log("user:", user);
+
+    if (!user) {
+      console.log("entered if");
+      toast.error("برای چت کردن وارد شوید");
+      navigate("/login");
+      return;
+    }
+
+    try {
+      console.log("before api");
+
+      const conversation = await getOrCreateConversation(
+        parseInt(id),
+        user.id,
+        ad.user_id,
+      );
+
+      console.log("conversation:", conversation);
+
+      console.log("before navigate");
+
+      navigate(`/chat/${conversation.id}`);
+    } catch (error) {
+      console.log(error);
+      toast.error("خطا در ایجاد چت");
+    }
+  };
 
   if (isLoading) {
     return (
@@ -306,7 +339,7 @@ function AdDetailPage() {
                 size="small"
                 variation="secondary"
                 className="px-14 py-3 md:px-30"
-                onClick={() => toast.info("در حال توسعه...")}
+                onClick={handleChat}
               >
                 <FaComment size={16} />
                 چت

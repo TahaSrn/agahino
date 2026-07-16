@@ -186,16 +186,6 @@ function Header() {
                       <button
                         onClick={() => {
                           setShowDropdown(false);
-                          navigate("/chat");
-                        }}
-                        className="hover:text-primary-100 font-sansReg flex w-full items-center gap-3 px-4 py-2.5 text-sm text-gray-300 transition-colors duration-200 hover:bg-white/5"
-                      >
-                        <IoChatbubbleOutline size={16} />
-                        چت‌ها
-                      </button>
-                      <button
-                        onClick={() => {
-                          setShowDropdown(false);
                           navigate("/settings");
                         }}
                         className="hover:text-primary-100 font-sansReg flex w-full items-center gap-3 px-4 py-2.5 text-sm text-gray-300 transition-colors duration-200 hover:bg-white/5"

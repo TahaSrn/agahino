@@ -6,6 +6,10 @@ import LoginPage from "./pages/LoginPage";
 import AdDetailPage from "./pages/AdDetailPage";
 import ChatLayout from "./pages/ChatLayout";
 import ProfilePage from "./pages/ProfilePage";
+import MyAdsPage from "./pages/MyAdsPage";
+import EditAdPage from "./pages/EditAdPage";
+import FavoritesPage from "./pages/FavoritesPage";
+import NotificationsPage from "./pages/NotificationsPage";
 
 function App() {
   return (
@@ -35,6 +39,11 @@ function App() {
           <Route path="/ad/:id" element={<AdDetailPage />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/profile" element={<ProfilePage />} />
+          <Route path="/my-ads" element={<MyAdsPage />} />
+          <Route path="/edit-ad/:id" element={<EditAdPage />} />
+
+          <Route path="/favorites" element={<FavoritesPage />} />
+          <Route path="/notifications" element={<NotificationsPage />} />
 
           <Route path="/chat" element={<ChatLayout />} />
           <Route path="/chat/:conversationId" element={<ChatLayout />} />

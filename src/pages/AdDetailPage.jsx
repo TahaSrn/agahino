@@ -14,6 +14,8 @@ import {
   FaUser,
   FaCopy,
   FaExpand,
+  FaHeart,
+  FaRegHeart,
 } from "react-icons/fa";
 import { useState, useEffect } from "react";
 import toast from "react-hot-toast";
@@ -24,6 +26,9 @@ import Thumbnails from "yet-another-react-lightbox/plugins/thumbnails";
 import "yet-another-react-lightbox/plugins/thumbnails.css";
 import { useUser } from "../features/auth/useUser";
 import { getOrCreateConversation } from "../services/apiChat";
+import { useCheckFavorite } from "../features/favorites/useCheckFavorite";
+import { useAddFavorite } from "../features/favorites/useAddFavorite";
+import { useRemoveFavorite } from "../features/favorites/useRemoveFavorite";
 
 function AdDetailPage() {
   const { id } = useParams();
@@ -36,36 +41,50 @@ function AdDetailPage() {
   const [isLightboxOpen, setIsLightboxOpen] = useState(false);
   const [lightboxIndex, setLightboxIndex] = useState(0);
 
+  const { isFavorite, isLoading: isFavoriteLoading } = useCheckFavorite(
+    user?.id,
+    parseInt(id),
+  );
+  const { addFavorite } = useAddFavorite();
+  const { removeFavorite } = useRemoveFavorite();
+
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: "smooth" });
   }, []);
 
-  const handleChat = async () => {
-    console.log("user:", user);
-
+  const handleFavoriteToggle = async () => {
     if (!user) {
-      console.log("entered if");
+      toast.error("برای افزودن به علاقه‌مندی‌ها وارد شوید");
+      navigate("/login");
+      return;
+    }
+
+    try {
+      if (isFavorite) {
+        await removeFavorite({ userId: user.id, adId: parseInt(id) });
+      } else {
+        await addFavorite({ userId: user.id, adId: parseInt(id) });
+      }
+    } catch (error) {
+      // خطا قبلاً در toast نمایش داده شده
+    }
+  };
+
+  const handleChat = async () => {
+    if (!user) {
       toast.error("برای چت کردن وارد شوید");
       navigate("/login");
       return;
     }
 
     try {
-      console.log("before api");
-
       const conversation = await getOrCreateConversation(
         parseInt(id),
         user.id,
         ad.user_id,
       );
-
-      console.log("conversation:", conversation);
-
-      console.log("before navigate");
-
       navigate(`/chat/${conversation.id}`);
     } catch (error) {
-      console.log(error);
       toast.error("خطا در ایجاد چت");
     }
   };
@@ -196,14 +215,30 @@ function AdDetailPage() {
           </div>
 
           <div className="space-y-4">
-            {ad.is_featured && (
-              <span className="font-sansReg inline-block rounded-full border border-yellow-500/30 bg-gradient-to-r from-yellow-500/20 to-yellow-600/10 px-3 py-1 text-xs text-yellow-400">
-                ⭐ ویژه
-              </span>
-            )}
-            <h1 className="text-primary-100 font-sansBold text-2xl md:text-3xl">
-              {ad.title}
-            </h1>
+            <div className="flex items-start justify-between">
+              <div>
+                {ad.is_featured && (
+                  <span className="font-sansReg inline-block rounded-full border border-yellow-500/30 bg-gradient-to-r from-yellow-500/20 to-yellow-600/10 px-3 py-1 text-xs text-yellow-400">
+                    ⭐ ویژه
+                  </span>
+                )}
+                <h1 className="text-primary-100 font-sansBold mt-2 text-2xl md:text-3xl">
+                  {ad.title}
+                </h1>
+              </div>
+              <button
+                onClick={handleFavoriteToggle}
+                disabled={isFavoriteLoading}
+                className="mt-1 text-gray-400 transition-colors duration-300 hover:text-red-400"
+              >
+                {isFavorite ? (
+                  <FaHeart size={28} className="text-red-500" />
+                ) : (
+                  <FaRegHeart size={28} />
+                )}
+              </button>
+            </div>
+
             <p className="text-primary-300 font-sansBold text-2xl md:text-3xl">
               {ad.price?.toLocaleString()} تومان
             </p>

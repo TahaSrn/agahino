@@ -56,6 +56,18 @@ export async function createAd(adData) {
   return data;
 }
 
+export async function updateAd(id, adData) {
+  const { data, error } = await supabase
+    .from("ads")
+    .update(adData)
+    .eq("id", id)
+    .select()
+    .single();
+
+  if (error) throw new Error(error.message);
+  return data;
+}
+
 export async function uploadAdImages(files, adId) {
   const uploadedUrls = [];
 

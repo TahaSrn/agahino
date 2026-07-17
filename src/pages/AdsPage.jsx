@@ -1,4 +1,4 @@
-// pages/AdsPage.jsx
+// pages/AdsPage.jsx (اصلاح شده)
 import { useState, useEffect } from "react";
 import { useSearchParams, useLocation } from "react-router";
 import { useGetAds } from "../features/ads/useGetAds";
@@ -13,12 +13,13 @@ function AdsPage() {
   const initialFeatured = searchParams.get("featured") === "true";
   const initialCategory = searchParams.get("category") || "";
   const initialSort = searchParams.get("sort") || "newest";
+  const initialSearchQuery = searchParams.get("q") || "";
 
   const [selectedCategory, setSelectedCategory] = useState(initialCategory);
   const [selectedProvince, setSelectedProvince] = useState(initialProvince);
   const [priceMin, setPriceMin] = useState("");
   const [priceMax, setPriceMax] = useState("");
-  const [searchQuery, setSearchQuery] = useState("");
+  const [searchQuery, setSearchQuery] = useState(initialSearchQuery);
   const [showFeaturedOnly, setShowFeaturedOnly] = useState(initialFeatured);
   const [sortBy, setSortBy] = useState(initialSort);
 
@@ -39,7 +40,16 @@ function AdsPage() {
     if (initialSort) {
       setSortBy(initialSort);
     }
-  }, [initialProvince, initialFeatured, initialCategory, initialSort]);
+    if (initialSearchQuery) {
+      setSearchQuery(initialSearchQuery);
+    }
+  }, [
+    initialProvince,
+    initialFeatured,
+    initialCategory,
+    initialSort,
+    initialSearchQuery,
+  ]);
 
   const { ads, isLoading, error } = useGetAds();
 
@@ -73,7 +83,6 @@ function AdsPage() {
     return match;
   });
 
-  // اعمال سورت
   if (filteredAds) {
     if (sortBy === "newest") {
       filteredAds = [...filteredAds].sort(

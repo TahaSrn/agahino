@@ -23,6 +23,7 @@ function Header() {
   const [lastScrollY, setLastScrollY] = useState(0);
   const [showDropdown, setShowDropdown] = useState(false);
   const [userPhone, setUserPhone] = useState("");
+  const [selectedProvince, setSelectedProvince] = useState("");
   const dropdownRef = useRef(null);
 
   useEffect(() => {
@@ -90,11 +91,11 @@ function Header() {
           <Logo className="w-20 md:w-40" />
 
           <div className="hidden md:block">
-            <SelectBar />
+            <SelectBar onProvinceChange={setSelectedProvince} />
           </div>
 
           <div className="min-w-0 flex-1">
-            <Search />
+            <Search selectedProvince={selectedProvince} />
           </div>
 
           <div className="text-primary-100 hidden items-center gap-5 md:flex">

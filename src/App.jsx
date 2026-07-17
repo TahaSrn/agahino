@@ -10,6 +10,7 @@ import MyAdsPage from "./pages/MyAdsPage";
 import EditAdPage from "./pages/EditAdPage";
 import FavoritesPage from "./pages/FavoritesPage";
 import NotificationsPage from "./pages/NotificationsPage";
+import SettingsPage from "./pages/SettingsPage";
 
 function App() {
   return (
@@ -44,6 +45,7 @@ function App() {
 
           <Route path="/favorites" element={<FavoritesPage />} />
           <Route path="/notifications" element={<NotificationsPage />} />
+          <Route path="/settings" element={<SettingsPage />} />
 
           <Route path="/chat" element={<ChatLayout />} />
           <Route path="/chat/:conversationId" element={<ChatLayout />} />

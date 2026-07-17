@@ -1,7 +1,7 @@
+// ui/Modal.jsx
 import { useEffect, useRef } from "react";
-import { FaTimes } from "react-icons/fa";
 
-function Modal({ isOpen, onClose, children }) {
+function Modal({ isOpen, onClose, children, title }) {
   const modalRef = useRef(null);
 
   useEffect(() => {
@@ -17,8 +17,8 @@ function Modal({ isOpen, onClose, children }) {
   }, [isOpen]);
 
   useEffect(() => {
-    const handleClickOutside = (e) => {
-      if (modalRef.current && !modalRef.current.contains(e.target)) {
+    const handleClickOutside = (event) => {
+      if (modalRef.current && !modalRef.current.contains(event.target)) {
         onClose();
       }
     };
@@ -40,15 +40,11 @@ function Modal({ isOpen, onClose, children }) {
         ref={modalRef}
         className="bg-dark-800/95 animate-scaleIn max-h-[90vh] w-full max-w-lg overflow-y-auto rounded-2xl border border-white/10 p-6 shadow-2xl"
       >
-        <div className="mb-4 flex items-center justify-between">
-          <h2 className="text-primary-100 font-sansBold text-xl">ثبت آگهی</h2>
-          <button
-            onClick={onClose}
-            className="text-gray-400 transition-colors duration-300 hover:text-white"
-          >
-            <FaTimes size={22} />
-          </button>
-        </div>
+        {title && (
+          <div className="mb-4 flex items-center justify-between">
+            <h2 className="text-primary-100 font-sansBold text-xl">{title}</h2>
+          </div>
+        )}
         {children}
       </div>
     </div>
